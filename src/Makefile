@@ -1,6 +1,5 @@
 export BUILD_TYPE = debug
 
-SRC_DIR = .
 #############################################
 #              set for compiler             #
 #############################################
@@ -97,9 +96,19 @@ FLAGS += $(OPT_FLAGS)
 ##################################################
 #         The project files settings             #
 ##################################################
-EXE = ../bin/a.out
+SRC_DIR = .
 OBJ_DIR = ../obj
-
+BIN_DIR = ../bin
+LIB_DIR = ../lib
+DIRS = $(OBJ_DIR) $(BIN_DIR) $(LIB_DIR)
+MK_DIRS = \
+  for dir in $(DIRS); do\
+    if [ ! -d $$dir ]; then\
+      echo "$$dir not exist, create it!";\
+      mkdir $$dir;\
+    fi;\
+  done
+EXE = $(BIN_DIR)/a.out
 OBJ = $(patsubst $(SRC_DIR)/%.cc, $(OBJ_DIR)/%.o, $(wildcard $(SRC_DIR)/*.cc))
 
 #link all needed object files to binary file.
@@ -112,7 +121,10 @@ $(EXE): $(OBJ)
 $(OBJ): $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cc
 	$(CC) $(FLAGS) -c $< -o $@
 
-.PHONY: clean
+.PHONY: clean all
 clean:
 	rm -fv $(OBJ_DIR)/*.o $(EXE)
 	echo "remove all object files and sort"
+all:
+	$(MK_DIRS)
+	make
