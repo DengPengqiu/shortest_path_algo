@@ -6,3 +6,4 @@
 3. 编译时，请 cd src && make；如果是首次编译，那一定要输入 make all；
 4. 用法：./bin/a.out [-algo_type] start_station end_station；当代码首次被 clone 到本地时，并没有 bin 目录，必须要输入 make all 来穿建 bin/, obj/, result/ 目录，-algo_type 的选项为：-(dij|dijk|bell|bf|sp|spfa)，其中，-dij 或 -dijk 表示使用 Dijkstra 算法，-bell 或 -bf 表示使用 Bellmam-Ford 算法，-sp 或 -spfa 表示使用 SPFA 算法。start_station 和 end_station 为 起点站和终点站，目前只支持拼音输入，且文字拼音间用 '_' 分隔。例如，东直门就输入 dong_zhi_men, 五道口就输入 wu_dao_kou。
 5. 注意，北京地铁站中，15 线关庄站与八通线管庄站的拼音相同，为了区分两者，关庄站请输入 guan_zhuang[15]，管庄站请输入 guan_zhuang[ba_tong]。
+6. 首次编译代码时，会自动生成 result/ 目录，里面将保存从起点站到终点站的最短时间乘车路线的文本文件。文件名为 start_station-to-end-station.txt。例如执行命令 ./bin/a.out dong_zhi_men wu_dao_kou 后，result/ 将会多出一个 dong_zhi_men-to-wu_dao_kou.txt，想查看内容，可输入命令 cat dong_zhi_men-to-wu_dao_kou.txt。
